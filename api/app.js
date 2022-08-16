@@ -7,7 +7,7 @@ const { sequelize } = require("./models");
 const courseRoutes = require("./routes/routesForCourse");
 const userRoutes = require("./routes/routesForUser");
 
-const cors = require("cors");
+const cors = require("cors"); //talks to client folder
 
 // variable to enable global error logging
 const enableGlobalErrorLogging =
