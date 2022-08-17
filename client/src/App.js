@@ -10,35 +10,38 @@ import {
   Route,
 } from "react-router-dom";
 
-import CourseDetail from './components/Courses';
-import Courses from './components/Courses'
-import CreateCourse from './components/CreateCourse'
-import Header from './components/Header'
-import UpdateCourse from './components/UpdateCourse';
-import UserSignIn from './components/UserSignIn';
-import UserSignUp from './components/UserSignUp';
+//import CourseDetail from './components/CoursesDetail';
+import Courses from './components/Courses';
+// import CreateCourse from './components/CreateCourse';
+// import Header from './components/Header';
+// import UpdateCourse from './components/UpdateCourse';
+// import UserSignIn from './components/UserSignIn';
+// import UserSignUp from './components/UserSignUp';
 
+/**
+ * adding HOC components to Context here
+ *
+ *
+ *
+ *
+ */
 
-function App() {
-  return
+/**
+ * function App holds the routes to components including a catch all error route in line 47
+ *
+ */
+
+ function App() {
+  return (
     <Router>
-      <div className = "App">
-        <HeaderWithContext />
-          <Switch>
-            <Route exact path="/" component={ Courses } />
-            <PrivateRoute exact path="/authenticated" component={AuthWithContext} />
-            <Route path="/signin" component={UserSignInWithContext} />
-            <Route path="/signup" component={UserSignUpWithContext} />
-            <Route path="/signout" component={UserSignOutWithContext} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </Router>
-    );
-
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={ Courses } />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
-
-
 
 
 /**
