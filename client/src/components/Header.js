@@ -1,6 +1,12 @@
+/**
+ * Header component renders at the top menu bar and buttons for signing up and signing in
+ */
+
+//import components
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
+//functional Header that displays name of user at the top
 function Header(props) {
   const { loggedInUser, handleLogout, location } = props;
   const { firstName, lastName } = loggedInUser || {};
