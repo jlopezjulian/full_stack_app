@@ -1,7 +1,10 @@
 import React from 'react';
 
-function Header(){
-    return <h1>Hello Josselyn</h1>
-}
+const Header = () => <h1> Hello Jo </h1>
 
 export default Header;
+
+
+/**
+ * testing
+ */
