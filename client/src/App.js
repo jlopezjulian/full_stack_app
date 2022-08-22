@@ -4,6 +4,7 @@
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
 
 
 
@@ -13,14 +14,12 @@ import CourseDetail from "./components/CourseDetail";
 import UpdateCourse from "./components/UpdateCourse";
 import UserSignIn from "./components/UserSignIn";
 import UserSignUp from "./components/UserSignUp";
-//import UserSignOut from "./components/UserSignOut";
+import UserSignOut from "./components/UserSignOut";
 import CreateCourse from "./components/CreateCourse";
-//import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
 
-/**
- * adding HOC components to Context here
- */
+
 
 
  export default class App extends Component {
