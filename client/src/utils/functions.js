@@ -1,13 +1,13 @@
 export const getAuthorizationHeader = (loggedInUser) => {
-    const { emailAddress, password } = loggedInUser;
-    return {
-      auth: {
-        username: emailAddress,
-        password
-      }
-    };
+  const { emailAddress, password } = loggedInUser;
+  return {
+    auth: {
+      username: emailAddress,
+      password
+    }
   };
+};
 
-  export const isAuthorizedUser = (loggedInUser, courseOwnerId) => {
-    return loggedInUser && courseOwnerId === loggedInUser.id;
-  };
+export const isAuthorizedUser = (loggedInUser, courseOwnerId) => {
+  return loggedInUser && courseOwnerId === loggedInUser.id;
+};
