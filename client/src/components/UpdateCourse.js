@@ -9,6 +9,7 @@ import React, { Component } from "react";
 import { getAuthorizationHeader } from "../utils/functions";
 
 //class component that checks course details with ternary operators and assign an empty state to each input
+//need to return to refactor this
 export default class UpdateCourse extends Component {
   state = {
     title: this.props?.location?.state?.title
