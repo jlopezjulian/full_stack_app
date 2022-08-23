@@ -55,8 +55,10 @@ module.exports = (sequelize) => {
           },
         },
         set(val) {
+          if (val){ //setting a conditional statement for pw validation
           const hashedPassword = bcrypt.hashSync(val, 10);
           this.setDataValue("password", hashedPassword);
+          }
         },
       },
     },

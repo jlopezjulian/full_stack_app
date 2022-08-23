@@ -1,7 +1,14 @@
+/**
+ * UpdateCourse renders a form that allows a user to update one of existing courses
+ * -renders "Update Course" button to api/courses/:id
+ * -renders a "Cancel" button that returns user to Course Detail screen
+ */
+
 import axios from "axios";
 import React, { Component } from "react";
 import { getAuthorizationHeader } from "../utils/functions";
 
+//class component that checks items with ternary operators
 export default class UpdateCourse extends Component {
   state = {
     title: this.props?.location?.state?.title
@@ -22,6 +29,7 @@ export default class UpdateCourse extends Component {
     errorMessages: []
   };
 
+  //event handler that sets state to name value pair
   handleOnChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -29,6 +37,7 @@ export default class UpdateCourse extends Component {
     });
   };
 
+  //event handler that
   handleFormSubmit = (event) => {
     event.preventDefault();
     const id = this.props?.location?.state.id;
@@ -42,15 +51,15 @@ export default class UpdateCourse extends Component {
       errorMessages: []
     });
 
-    axios
+    axios //put is used to update courses
       .put(
         `/courses/${id}`,
         {
-          ...rest
+          ...rest //title, description, estimateTime, materials needed, student
         },
         auth
       )
-      .then(() => this.props.history.push("/"))
+      .then(() => this.props.history.push("/")) //default page
       .catch((error) => {
         const errors = error?.response?.data?.errors || [error.message];
         this.setState({
@@ -59,6 +68,8 @@ export default class UpdateCourse extends Component {
       });
   };
 
+
+  //renders from update-course.html
   render() {
     const {
       title,
