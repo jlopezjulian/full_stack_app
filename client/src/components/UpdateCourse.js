@@ -8,7 +8,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { getAuthorizationHeader } from "../utils/functions";
 
-//class component that checks items with ternary operators
+//class component that checks course details with ternary operators and assign an empty state
 export default class UpdateCourse extends Component {
   state = {
     title: this.props?.location?.state?.title
