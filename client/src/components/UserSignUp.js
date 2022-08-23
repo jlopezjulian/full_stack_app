@@ -1,7 +1,15 @@
+/**
+ * Component that provides Sign up screen:
+ * -create new account
+ * -sign up button using /api/users route
+ * -renders a cancel button that leads to list of course (default)
+ */
+
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+//class component to add empty state
 export default class UserSignUp extends Component {
   state = {
     firstName: "",
@@ -12,6 +20,7 @@ export default class UserSignUp extends Component {
     errorMessages: []
   };
 
+  //event listener to update name pair value
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -19,6 +28,7 @@ export default class UserSignUp extends Component {
     });
   };
 
+//event listener that allows form to be submitted with success msg or error msg
   handleFormSubmit = (event) => {
     event.preventDefault();
     const { successMsg, ...rest } = this.state;

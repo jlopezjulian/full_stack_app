@@ -1,7 +1,13 @@
+/**
+ * component that allows signed in user a "Create Course" button
+ * when clicked to a Create Course page with create/cancel buttons
+ */
+
 import axios from "axios";
 import React, { Component } from "react";
-import { getAuthorizationHeader } from "../utils/functions";
+import { getAuthorizationHeader } from "../utils/functions"; //only signed in user can see this button
 
+//create a CreateCourse component and adding empty state to necessary items
 export default class CreateCourse extends Component {
   state = {
     courseTitle: "",
@@ -11,6 +17,7 @@ export default class CreateCourse extends Component {
     errorMessages: []
   };
 
+  //when the user updates the input field, the name: value pair is updated
   handleOnChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -18,19 +25,20 @@ export default class CreateCourse extends Component {
     });
   };
 
+  //event handler used to submit form
   handleFormSubmit = (event) => {
     event.preventDefault();
     const loggedInUser = this.props.loggedInUser;
     const { courseTitle, courseDescription, estimatedTime, materialsNeeded } =
-      this.state;
+      this.state; //saves all data that is entered
 
     const auth = getAuthorizationHeader(loggedInUser);
     this.setState({
       errorMessages: []
     });
 
-    axios
-      .post(
+    axios //
+      .post( //access courses and course details from API
         `/courses`,
         {
           title: courseTitle,
@@ -40,7 +48,7 @@ export default class CreateCourse extends Component {
         },
         auth
       )
-      .then(() => this.props.history.push("/"))
+      .then(() => this.props.history.push("/")) //move from one page to another, need to read more information on useHistory hook if can be used instead
       .catch((error) => {
         const errors = error?.response?.data?.errors || [error.message];
         this.setState({
@@ -49,6 +57,7 @@ export default class CreateCourse extends Component {
       });
   };
 
+  //referencing uncontrolled components here https://reactjs.org/docs/uncontrolled-components.html
   render() {
     const { firstName, lastName } = this.props.loggedInUser || {};
     const {
@@ -59,6 +68,8 @@ export default class CreateCourse extends Component {
       errorMessages
     } = this.state;
 
+
+    //returning from create-course.html
     return (
       <main>
         <div className="wrap">

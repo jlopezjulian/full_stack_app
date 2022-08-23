@@ -1,9 +1,10 @@
 /**
  * Purpose of component: retrieves the list of courses from the REST API DB
  */
+
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";//renders an accessible element with a real href
 
 export default class Courses extends React.Component {
   state = {
@@ -12,18 +13,18 @@ export default class Courses extends React.Component {
 
   componentDidMount() {
     axios
-      .get("/courses")
-      .then((res) => {
+      .get("/courses") //fetching courses from database
+      .then((res) => { //setting a state to it
         this.setState({
           courses: res.data.courses
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)); //error stack
   }
-
+//rendering courses as default page (lines pulled from index.html)
   render() {
     const { courses } = this.state;
-    const { loggedInUser } = this.props;
+    const { loggedInUser } = this.props; //passing the props over whenever loggedInUser is stated
     return (
       <main>
         <div className="wrap main--grid">
@@ -64,3 +65,7 @@ export default class Courses extends React.Component {
     );
   }
 }
+
+/**
+ * sources: https://reactjs.org/docs/components-and-props.html
+ */

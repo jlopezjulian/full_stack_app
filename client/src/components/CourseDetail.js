@@ -1,15 +1,22 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import { getAuthorizationHeader, isAuthorizedUser } from "../utils/functions";
+/**
+ * Purpose: component that retrieves the detail for courses from the Rest API and allows use to delete course button;
+ * update course is also in this component
+ */
 
+
+import axios from "axios"; //fetch data from api (proj 9)
+import React, { Component } from "react";
+import { Link } from "react-router-dom"; //renders an accessible element with a real href
+import ReactMarkdown from "react-markdown"; //to safely render React elements
+import { getAuthorizationHeader, isAuthorizedUser } from "../utils/functions"; //importing function from utils
+
+//deciding to do class components, will come back to refactor into hooks
 export default class CourseDetail extends Component {
   state = {
     courseDetails: null
   };
 
-  componentDidMount() {
+  componentDidMount() { //component first reloads to make an axios call pulling a specific course based on the id
     const { id } = this.props?.match?.params;
     axios
       .get(`/courses/${id}`)
@@ -18,18 +25,19 @@ export default class CourseDetail extends Component {
           courseDetails: res.data.course
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)); //error stack
   }
 
+//function to delete course based on specific course
   handleDeleteCourse = () => {
     const { id } = this.props?.match?.params;
     const loggedInUser = this.props.loggedInUser;
 
     const auth = getAuthorizationHeader(loggedInUser);
-    axios
+    axios //deleting within the api
       .delete(`/courses/${id}`, auth)
       .then(() => this.props.history.push("/"))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)); //error stack
   };
 
   render() {
@@ -38,6 +46,7 @@ export default class CourseDetail extends Component {
     const { title, description, estimatedTime, materialsNeeded, Student } =
       courseDetails || {};
 
+      //renders course details and any updates or deletes
     return (
       <main>
         <div className="actions--bar">
@@ -100,3 +109,8 @@ export default class CourseDetail extends Component {
     );
   }
 }
+
+/**
+ * sources: https://www.youtube.com/watch?v=Mm6_DlO5vvs (file structure)
+ * https://www.xenonstack.com/insights/reactjs-project-structure
+ */

@@ -1,13 +1,22 @@
+/**
+ * purpose: component that provides a sign in screen
+ *  -renders a sign in button
+ *  -cancel button that returns the use to the default route (courses)
+ */
+
+//import components
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+//class component setting state to email address and password
 export default class UserSignIn extends Component {
   state = {
     emailAddress: "",
     password: ""
   };
 
+  //event handler for setting state to name input
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -15,6 +24,7 @@ export default class UserSignIn extends Component {
     });
   };
 
+  //event handler that fetches username data and saves
   handleFormSubmit = (event) => {
     event.preventDefault();
     const { emailAddress, password } = this.state;
@@ -37,6 +47,7 @@ export default class UserSignIn extends Component {
       .catch((error) => console.log(error));
   };
 
+//renders from sign in html
   render() {
     const { emailAddress, password } = this.state;
     return (

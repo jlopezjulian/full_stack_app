@@ -1,9 +1,21 @@
+/**
+stateless component that:
+  -displays the top menu bar
+  -shows sign in and sign up buttons
+  -shows name of authenticated user
+ */
+
+
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
+
+
 function Header(props) {
-  const { loggedInUser, handleLogout, location } = props;
+  const { loggedInUser, handleLogout, location } = props; //extra details from props
   const { firstName, lastName } = loggedInUser || {};
+
+  //render a welcome message (if authenicated user) and a sign out link
   return (
     <header>
       <div className="wrap header--flex">

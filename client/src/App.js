@@ -1,13 +1,12 @@
 /**
- * import components from components file (currently empty)
+ * import components from components file
  */
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./reset.css";
 import "./App.css";
 
-//import CourseDetail from './components/CoursesDetail';
+
 import Courses from "./components/Courses";
 import Header from "./components/Header";
 import CourseDetail from "./components/CourseDetail";
@@ -17,24 +16,9 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignOut from "./components/UserSignOut";
 import CreateCourse from "./components/CreateCourse";
 import PrivateRoute from "./components/PrivateRoute";
-// import CreateCourse from './components/CreateCourse';
-// import Header from './components/Header';
-// import UpdateCourse from './components/UpdateCourse';
-// import UserSignIn from './components/UserSignIn';
-// import UserSignUp from './components/UserSignUp';
 
-/**
- * adding HOC components to Context here
- *
- *
- *
- *
- */
 
-/**
- * function App holds the routes to components including a catch all error route in line 47
- *
- */
+//
 
 export default class App extends Component {
   state = {
@@ -54,8 +38,24 @@ export default class App extends Component {
     this.setState({
       loggedInUser: null
     });
-    window.location.href = "/signin";
+    window.location.href = "/signin"; //get current url and redirect to the browser sign in page
   };
+
+/**
+ * routes to the components
+ * / - Courses
+ * /courses/create - CreateCourse
+ * /courses/:id/update - UpdateCourse
+ * /courses/:id - CourseDetail
+ * /signin - UserSignIn
+ * /signup - UserSignUp
+ * /signout - UserSignOut
+ *
+ */
+
+
+
+
 
   render() {
     return (
@@ -115,4 +115,5 @@ export default class App extends Component {
 /**
  * Sources:
  * https://teamtreehouse.com/library/introducing-the-challenge#downloads
+ * //https://stackoverflow.com/questions/31048953/what-are-these-three-dots-in-react-doing
  */
