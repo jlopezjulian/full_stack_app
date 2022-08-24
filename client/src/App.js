@@ -21,6 +21,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 //bringing the signin() method and signOUt()method into global states (brought them from components)
 
+
 class App extends Component {
   state = {
     loggedInUser: null
@@ -54,6 +55,7 @@ class App extends Component {
     this.props.history.push("/");
   };
 
+
 /**
  * routes to the components
  * / - Courses
@@ -65,11 +67,6 @@ class App extends Component {
  * /signout - UserSignOut
  *
  */
-
-
-
-
-
  render() {
   return (
     <>
@@ -115,8 +112,8 @@ class App extends Component {
 }
 }
 
-
 export default withRouter(App);
+
 
 /**
  * Testing to see if API and Client are talking to each other

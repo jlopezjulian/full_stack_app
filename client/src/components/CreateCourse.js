@@ -1,4 +1,6 @@
 /**
+ *
+ * Purpose:
  * component that allows signed in user a "Create Course" button
  * when clicked to a Create Course page with create/cancel buttons
  */
@@ -130,7 +132,13 @@ export default class CreateCourse extends Component {
             <button className="button" type="submit">
               Create Course
             </button>
-            <button className="button button-secondary">Cancel</button>
+            <button
+              className="button button-secondary"
+              type="button"
+              onClick={() => this.props.history.push("/")}
+              >
+                Cancel
+              </button>
           </form>
         </div>
       </main>

@@ -1,4 +1,5 @@
 /**
+ * Purpose:
 stateless component that:
   -displays the top menu bar
   -shows sign in and sign up buttons
@@ -12,7 +13,7 @@ import { Link, withRouter } from "react-router-dom";
 
 
 function Header(props) {
-  const { loggedInUser, handleLogout, location } = props; //extra details from props
+  const { loggedInUser } = props; //extra details from props
   const { firstName, lastName } = loggedInUser || {};
 
   //render a welcome message (if authenicated user) and a sign out link
@@ -29,9 +30,7 @@ function Header(props) {
                 Welcome, {firstName} {lastName}
               </li>
               <li>
-                <Link to={location?.pathname} onClick={handleLogout}>
-                  Sign Out
-                </Link>
+                <Link to="/signout">Sign Out</Link>
               </li>
             </ul>
           ) : (
