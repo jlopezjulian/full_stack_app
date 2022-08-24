@@ -12,21 +12,11 @@ import { getAuthorizationHeader } from "../utils/functions";
 //need to return to refactor this
 export default class UpdateCourse extends Component {
   state = {
-    title: this.props?.location?.state?.title
-      ? this.props?.location?.state?.title
-      : "",
-    description: this.props?.location?.state?.description
-      ? this.props?.location?.state?.description
-      : "",
-    estimatedTime: this.props?.location?.state?.estimatedTime
-      ? this.props?.location?.state?.estimatedTime
-      : "",
-    materialsNeeded: this.props?.location?.state?.materialsNeeded
-      ? this.props?.location?.state?.materialsNeeded
-      : "",
-    Student: this.props?.location?.state?.Student
-      ? this.props?.location?.state?.Student
-      : null,
+    title: "",
+    description: "",
+    estimatedTime:"",
+    materialsNeeded:"",
+    Student: null,
     errorMessages: []
   };
 
