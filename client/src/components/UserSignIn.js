@@ -5,7 +5,7 @@
  */
 
 //import components
-import axios from "axios";
+//import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
@@ -28,24 +28,26 @@ export default class UserSignIn extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     const { emailAddress, password } = this.state;
-    axios
-      .get("/users", {
-        auth: {
-          username: emailAddress,
-          password
-        }
-      })
-      .then((res) => {
-        this.props.setLoggedInUser({
-          user: {
-            ...res.data
-          },
-          password
-        });
-        this.props.history.push("/");
-      })
-      .catch((error) => console.log(error));
+    this.props.signIn(emailAddress, password);
   };
+  //   axios
+  //     .get("/users", {
+  //       auth: {
+  //         username: emailAddress,
+  //         password
+  //       }
+  //     })
+  //     .then((res) => {
+  //       this.props.setLoggedInUser({
+  //         user: {
+  //           ...res.data
+  //         },
+  //         password
+  //       });
+  //       this.props.history.push("/");
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
 //renders from sign in html
   render() {

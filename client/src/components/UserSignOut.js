@@ -3,14 +3,16 @@
  * authenticated user and redirects the user to the default route (i.e. the list of courses)
  */
 
-import React from "react";
+import { Component }from "react";
 
-const UserSignOut = () => {
-  return <div>UserSignOut</div>;
-
-};
-
-export default UserSignOut;
+export default class UserSignOut extends Component {
+  componentDidMount() {
+    this.props.signOut();
+  }
+  render() {
+    return null;
+  }
+}
 
 
 //

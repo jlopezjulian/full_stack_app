@@ -1,4 +1,5 @@
 /**
+ * Purpose:
  * Component that provides Sign up screen:
  * -create new account
  * -sign up button using /api/users route
@@ -35,17 +36,16 @@ export default class UserSignUp extends Component {
 
     this.setState({
       errorMessages: [],
-      successMsg: ""
+      //successMsg: ""
     });
 
     axios
       .post("/users", {
         ...rest
       })
-      .then((res) => {
-        this.setState({
-          successMsg: "User registration is successful."
-        });
+      .then(() => {
+        const { emailAddress, password } = this.state;
+        this.props.signIn(emailAddress, password);
       })
       .catch((error) => {
         const errors = error?.response?.data?.errors || [error.message];
@@ -56,19 +56,12 @@ export default class UserSignUp extends Component {
   };
 
   render() {
-    const {
-      firstName,
-      lastName,
-      emailAddress,
-      password,
-      successMsg,
-      errorMessages
-    } = this.state;
+    const { firstName, lastName, emailAddress, password, errorMessages } =
+      this.state;
     return (
       <main>
         <div className="form--centered">
           <h2>Sign Up</h2>
-          {successMsg && <p style={{ color: "#00ff00" }}>{successMsg}</p>}
           {errorMessages.length > 0 && (
             <div className="validation--errors">
               <h3>Validation Errors</h3>
@@ -117,6 +110,7 @@ export default class UserSignUp extends Component {
             </button>
             <button
               className="button button-secondary"
+              type="button"
               onClick={() => this.props.history.push("/")}
             >
               Cancel
