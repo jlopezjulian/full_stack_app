@@ -3,8 +3,9 @@
  */
 
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
+import axios from "axios";
 
 
 import Courses from "./components/Courses";
@@ -18,27 +19,39 @@ import CreateCourse from "./components/CreateCourse";
 import PrivateRoute from "./components/PrivateRoute";
 
 
-//
+//bringing the signin() method and signOUt()method into global states (brought them from components)
 
-export default class App extends Component {
+class App extends Component {
   state = {
     loggedInUser: null
   };
 
-  setLoggedInUser = ({ user, password }) => {
-    this.setState({
-      loggedInUser: {
-        ...user,
-        password
-      }
-    });
+  signIn = (emailAddress, password) => {
+    axios
+      .get("/users", {
+        auth: {
+          username: emailAddress,
+          password
+        }
+      })
+      .then((res) => {
+        this.setState({
+          loggedInUser: {
+            ...res.data,
+            password
+          }
+        });
+        this.props.history.push("/");
+      })
+      .catch((error) => console.log(error));
   };
 
-  handleLogout = () => {
+  signOut = () => {
     this.setState({
       loggedInUser: null
     });
-    window.location.href = "/signin"; //get current url and redirect to the browser sign in page
+
+    this.props.history.push("/");
   };
 
 /**
@@ -57,53 +70,53 @@ export default class App extends Component {
 
 
 
-  render() {
-    return (
-      <Router>
-        <Header
+ render() {
+  return (
+    <>
+      <Header loggedInUser={this.state.loggedInUser} />
+      <Switch>
+        <Route exact path="/" component={Courses} />
+        <PrivateRoute
+          exact
+          path="/courses/create"
+          component={CreateCourse}
           loggedInUser={this.state.loggedInUser}
-          handleLogout={this.handleLogout}
         />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <Courses {...props} loggedInUser={this.state.loggedInUser} />
-            )}
-          />
-          <PrivateRoute
-            exact
-            path="/courses/create"
-            component={CreateCourse}
-            loggedInUser={this.state.loggedInUser}
-          />
-          <Route
-            exact
-            path="/courses/:id"
-            render={(props) => (
-              <CourseDetail {...props} loggedInUser={this.state.loggedInUser} />
-            )}
-          />
-          <PrivateRoute
-            path="/courses/:id/update"
-            component={UpdateCourse}
-            loggedInUser={this.state.loggedInUser}
-          />
+        <Route
+          exact
+          path="/courses/:id"
+          render={(props) => (
+            <CourseDetail {...props} loggedInUser={this.state.loggedInUser} />
+          )}
+        />
+        <PrivateRoute
+          path="/courses/:id/update"
+          component={UpdateCourse}
+          loggedInUser={this.state.loggedInUser}
+        />
 
-          <Route
-            path="/signin"
-            render={(props) => (
-              <UserSignIn {...props} setLoggedInUser={this.setLoggedInUser} />
-            )}
-          />
-          <Route path="/signup" component={UserSignUp} />
-          <Route path="/signout" component={UserSignOut} />
-        </Switch>
-      </Router>
-    );
-  }
+        <Route
+          path="/signin"
+          render={(props) => <UserSignIn {...props} signIn={this.signIn} />}
+        />
+        <Route
+          path="/signup"
+          render={(props) => <UserSignUp {...props} signIn={this.signIn} />}
+        />
+        <Route
+          path="/signout"
+          render={(props) => (
+            <UserSignOut {...props} signOut={this.signOut} />
+          )}
+        />
+      </Switch>
+    </>
+  );
 }
+}
+
+
+export default withRouter(App);
 
 /**
  * Testing to see if API and Client are talking to each other
