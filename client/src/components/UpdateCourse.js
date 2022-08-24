@@ -1,4 +1,5 @@
 /**
+ * Purpose:
  * UpdateCourse renders a form that allows a user to update one of existing courses
  * -renders "Update Course" button to api/courses/:id
  * -renders a "Cancel" button that returns user to Course Detail screen
@@ -10,15 +11,28 @@ import { getAuthorizationHeader } from "../utils/functions";
 
 //class component that checks course details with ternary operators and assign an empty state to each input
 //need to return to refactor this
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining (prevent nesting chaos)
+
 export default class UpdateCourse extends Component {
   state = {
-    title: "",
-    description: "",
-    estimatedTime:"",
-    materialsNeeded:"",
-    Student: null,
+    title: this.props?.location?.state?.title
+      ? this.props?.location?.state?.title //attempted to refactor to just have empty state but unsure how to hold the location
+      : "",
+    description: this.props?.location?.state?.description
+      ? this.props?.location?.state?.description
+      : "",
+    estimatedTime: this.props?.location?.state?.estimatedTime
+      ? this.props?.location?.state?.estimatedTime
+      : "",
+    materialsNeeded: this.props?.location?.state?.materialsNeeded
+      ? this.props?.location?.state?.materialsNeeded
+      : "",
+    Student: this.props?.location?.state?.Student
+      ? this.props?.location?.state?.Student
+      : null,
     errorMessages: []
   };
+
 
   //event handler that sets state to name value pair
   handleOnChange = (event) => {
@@ -28,10 +42,10 @@ export default class UpdateCourse extends Component {
     });
   };
 
-  //event handler that submits updated form
+    //event handler that submits updated form
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const id = this.props?.location?.state.id;
+    const id = this.props?.location?.state?.id;
     const loggedInUser = this.props.loggedInUser;
 
     const auth = getAuthorizationHeader(loggedInUser);
@@ -42,17 +56,16 @@ export default class UpdateCourse extends Component {
       errorMessages: []
     });
 
-    axios //put is used to update courses
-      .put(
+    axios
+      .put( //put is used to update courses
         `/courses/${id}`,
-        //console.log("hello")
+    //console.log("hello")
         {
           ...rest //title, description, estimateTime, materials needed, student
         },
         auth
-      //console.log("hello")
       )
-      .then(() => this.props.history.push("/")) //default page
+      .then(() => this.props.history.push(`/courses/${id}`)) //default page
       .catch((error) => {
         const errors = error?.response?.data?.errors || [error.message];
         this.setState({
@@ -61,8 +74,7 @@ export default class UpdateCourse extends Component {
       });
   };
 
-
-  //renders from update-course.html
+    //renders from update-course.html
   render() {
     const {
       title,
@@ -72,6 +84,8 @@ export default class UpdateCourse extends Component {
       Student,
       errorMessages
     } = this.state;
+
+    const { location } = this.props;
 
     return (
       <main>
@@ -131,7 +145,13 @@ export default class UpdateCourse extends Component {
             <button className="button" type="submit">
               Update Course
             </button>
-            <button type="submit" className="button button-secondary">
+            <button
+              type="button"
+              className="button button-secondary"
+              onClick={() =>
+                this.props.history.push(`/courses/${location?.state?.id}`)
+              }
+            >
               Cancel
             </button>
           </form>
@@ -140,3 +160,6 @@ export default class UpdateCourse extends Component {
     );
   }
 }
+  /**
+   * sources: https://www.youtube.com/watch?v=K7rHYyf6E0g
+   */
