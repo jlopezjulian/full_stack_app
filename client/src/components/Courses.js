@@ -24,7 +24,7 @@ export default class Courses extends React.Component {
 //rendering courses as default page (lines pulled from index.html)
   render() {
     const { courses } = this.state;
-    const { loggedInUser } = this.props; //passing the props over whenever loggedInUser is stated
+    //const { loggedInUser } = this.props; //passing the props over whenever loggedInUser is stated
     return (
       <main>
         <div className="wrap main--grid">
@@ -40,7 +40,6 @@ export default class Courses extends React.Component {
               </Link>
             );
           })}
-          {loggedInUser && (
             <Link
               to="/courses/create"
               className="course--module course--add--module"
@@ -59,7 +58,6 @@ export default class Courses extends React.Component {
                 New Course
               </span>
             </Link>
-          )}
         </div>
       </main>
     );
